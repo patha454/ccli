@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 int
-main(void)
+main_lib(void)
 {
   int a = 1;
   int b = 2;

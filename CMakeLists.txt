@@ -7,10 +7,18 @@ project(
     LANGUAGES C
 )
 
+# Export compile commands database for `clang-tidy`.
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-add_executable(test src/test.c)
+# Set up the `ccli` library target.
+add_library(ccli SHARED src/test.c)
 
+# Set up the test executable target.
+add_executable(tests tests/test.c)
+find_library(CMOCKA_LIBRARY cmocka REQUIRED)
+target_link_libraries(tests PRIVATE ${CMOCKA_LIBRARY} ccli)
+
+# Set up automatic packaging.
 set(CPACK_PACKAGE_VENDOR "H Paterson")
 set(CPACK_PACKAGE_CONTACT "H Paterson <harley.paterson@postgrad.otago.ac.nz>")
 set(CPACK_PACKAGE_DESCRIPTION "Portable CLI framework.")
